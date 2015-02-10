@@ -12,7 +12,40 @@ var alphabet = [
   'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
 ];
 
+var map = (function() {
+  var primeMap = {};
+  alphabet.forEach(function(letter, index) {
+    primeMap[letter] = primes[index];
+  });
+  return primeMap;
+
+})();
+
+
+
 var anagramDetection = function(parentSt, childSt) {
+  //calculate the prime proudct of child string
+  var primeProduct = 1, index;
+  var value = 1;
+  var found = 0;
+  for (var i = 0; i < childSt.length; i++) {
+    primeProduct *= map[childSt[i]];
 
+  }
+  //
+  for (var i = 0; i <= parentSt.length - childSt.length; i++) {
+    for (var j = 0; j < childSt.length; j++) {
+      value *= map[parentSt[i+j]];
 
+    }
+    if (value === primeProduct) {
+      found += 1;
+
+    }
+    value = 1;
+
+  }
+  return found;
 };
+
+console.log(anagramDetection('Lovevovov', 'ov'));
